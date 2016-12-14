@@ -15,3 +15,21 @@ artifactId 是特定的库名， `support-v4` 就是 artifactId.
 version 就是版本号。
 
 Fragment 的视图的实例化是在 onCreateView 生命周期方法中完成的。
+
+我们可以通过 style 属性来为组件设置自定义的样式。
+
+res 目录下在 style.xml 中设置样式如下：
+
+```
+    <style name="BigTextSize">
+        <item name="android:textSize">20dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textColor">@color/colorFont</item>
+    </style>
+```
+
+组件中通过 `@style/BigTextSize` 来引用。
+
+不以 layout_ 开头的属性作用于组件。
+
+以 layout_ 开头的属性作用于组件的负组件。

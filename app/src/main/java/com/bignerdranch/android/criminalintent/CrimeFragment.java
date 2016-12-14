@@ -5,9 +5,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 /**
@@ -15,9 +20,12 @@ import android.widget.EditText;
  */
 
 public class CrimeFragment extends Fragment {
+    private static final String TAG = "CrimeFragment";
 
     private Crime mCrime;
     private EditText mTitleField;
+    private Button mDateButton;
+    private CheckBox mSolvedCheckBox;
 
     @Override
     public void onCreate(Bundle saveInstanceState){
@@ -50,6 +58,22 @@ public class CrimeFragment extends Fragment {
 
             }
         });
+
+        // 设置按钮日期
+        mDateButton = (Button) v.findViewById(R.id.crime_date);
+        mDateButton.setText(DateFormat.format("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", mCrime.getDate()));
+        mDateButton.setEnabled(false);
+
+        // 获取 solved checkbox
+        mSolvedCheckBox = (CheckBox) v.findViewById(R.id.crime_solved);
+        mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                mCrime.setSolved(isChecked);
+                Log.d(TAG, "isChecked:" + mCrime.isSolved());
+            }
+        });
+
         return v;
     }
 }
